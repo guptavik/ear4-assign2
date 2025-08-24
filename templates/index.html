@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Selector & File Upload</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Animal Selector & File Upload Demo</h1>
+        
+        <div class="main-content">
+            <!-- Animal Selection Box -->
+            <div class="box animal-box">
+                <h2>Select an Animal</h2>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="animal" value="cat" id="cat-checkbox">
+                        <span class="checkmark"></span>
+                        Cat
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="animal" value="dog" id="dog-checkbox">
+                        <span class="checkmark"></span>
+                        Dog
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="animal" value="elephant" id="elephant-checkbox">
+                        <span class="checkmark"></span>
+                        Elephant
+                    </label>
+                </div>
+                <div class="animal-display">
+                    <img id="animal-image" src="" alt="Selected animal" style="display: none;">
+                    <p id="animal-message">Select an animal to see its image</p>
+                </div>
+            </div>
+
+            <!-- File Upload Box -->
+            <div class="box upload-box">
+                <h2>Upload a File</h2>
+                <div class="upload-area" id="upload-area">
+                    <input type="file" id="file-input" accept="*/*">
+                    <div class="upload-text">
+                        <p>Click to select a file or drag and drop</p>
+                        <span class="upload-hint">Any file type supported</span>
+                    </div>
+                </div>
+                <div class="file-info" id="file-info" style="display: none;">
+                    <h3>File Information:</h3>
+                    <div class="info-item">
+                        <strong>Name:</strong> <span id="file-name"></span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Size:</strong> <span id="file-size"></span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Type:</strong> <span id="file-type"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="200" fill="#f0f0f0"/>
+  <ellipse cx="150" cy="120" rx="80" ry="60" fill="#9e9e9e"/>
+  <circle cx="130" cy="100" r="6" fill="#333"/>
+  <circle cx="170" cy="100" r="6" fill="#333"/>
+  <ellipse cx="150" cy="140" rx="25" ry="15" fill="#757575"/>
+  <path d="M125 140 Q115 160 120 170" stroke="#757575" stroke-width="8" fill="none"/>
+  <ellipse cx="110" cy="90" rx="8" ry="15" fill="#9e9e9e"/>
+  <ellipse cx="190" cy="90" rx="8" ry="15" fill="#9e9e9e"/>
+  <path d="M100 170 L110 175 L105 180 L95 175 Z" fill="#757575"/>
+  <path d="M200 170 L210 175 L205 180 L195 175 Z" fill="#757575"/>
+  <text x="150" y="190" text-anchor="middle" font-family="Arial" font-size="16" fill="#333">🐘 Elephant</text>
+</svg>
