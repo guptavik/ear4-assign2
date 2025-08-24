@@ -72,4 +72,19 @@ def format_file_size(size_bytes):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Configuration for public IP access
+    # You can override these with environment variables
+    host = os.environ.get('FLASK_HOST', '0.0.0.0')  # Listen on all interfaces by default
+    port = int(os.environ.get('FLASK_PORT', 5000))   # Default port 5000
+    debug = os.environ.get('FLASK_DEBUG', 'True').lower() == 'true'
+    
+    print(f"Starting Flask server on {host}:{port}")
+    print(f"Access the application at: http://{host}:{port}")
+    if host == '0.0.0.0':
+        print("Note: Server is accessible from any IP address on the network")
+    
+    app.run(
+        host=host,
+        port=port,
+        debug=debug
+    )
