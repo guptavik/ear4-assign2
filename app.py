@@ -31,6 +31,55 @@ def get_animal_image(animal):
         })
     return jsonify({'error': 'Invalid animal'}), 400
 
+@app.route('/one_hot_vectors')
+def one_hot_vectors():
+    return render_template('one_hot_vectors.html')
+
+@app.route('/api/one_hot_encode', methods=['POST'])
+def one_hot_encode():
+    data = request.get_json()
+    if not data or 'words' not in data:
+        return jsonify({'error': 'No words provided'}), 400
+
+    words = data['words']
+    unique_words = sorted(list(set(words)))
+    
+    word_to_index = {word: i for i, word in enumerate(unique_words)}
+    
+    one_hot_vectors = []
+    for word in words:
+        vector = [0] * len(unique_words)
+        if word in word_to_index:
+            vector[word_to_index[word]] = 1
+        one_hot_vectors.append(vector)
+            
+    return jsonify({
+        'unique_words': unique_words,
+        'one_hot_vectors': one_hot_vectors
+    })
+
+@app.route('/token_checker')
+def token_checker():
+    return render_template('token_checker.html')
+
+@app.route('/api/count_tokens', methods=['POST'])
+def count_tokens():
+    data = request.get_json()
+    if not data or 'paragraph' not in data:
+        return jsonify({'error': 'No paragraph provided'}), 400
+
+    paragraph = data['paragraph'].strip()
+    if not paragraph:
+        return jsonify({'count': 0})
+
+    # Simple tokenization by splitting by spaces
+    tokens = paragraph.split()
+    token_count = len(tokens)
+            
+    return jsonify({
+        'token_count': token_count
+    })
+
 @app.route('/upload', methods=['POST'])
 def upload_file():
     """Handle file upload and return file information"""

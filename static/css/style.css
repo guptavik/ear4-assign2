@@ -46,6 +46,28 @@ h1 {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.ai-box .app-list {
+    list-style: none;
+    padding: 0;
+}
+
+.ai-box .app-list li {
+    margin-bottom: 10px;
+}
+
+.ai-box .app-list a {
+    text-decoration: none;
+    color: #667eea;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.ai-box .app-list a:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
 .box:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
