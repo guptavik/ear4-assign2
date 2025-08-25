@@ -1,67 +1,65 @@
-# Animal Selector & File Upload Web Application
+# ERA-V4 Assignment 2
 
 A Flask-based web application that demonstrates:
-1. Animal selection with checkboxes and image display
-2. File upload with detailed file information display
+- Animal selection and display
+- File upload with detailed information
+- Word to One-Hot Vector conversion
+- Token length checking
 
 ## Features
 
-### Animal Selection Box
+### AI Applications (Single-Page Interface)
+
+- The main page (`index.html`) now hosts all AI-related applications within a single interface.
+- Navigation is handled client-side with JavaScript to seamlessly switch between different tools.
+
+#### Animal Selector
 - Three checkboxes: Cat, Dog, Elephant
-- Displays corresponding animal image when selected
+- Displays corresponding animal emoji when selected
 - Only one animal can be selected at a time (radio-like behavior)
 
-### File Upload Box
+#### File Upload
 - Drag and drop or click to select files
 - Supports any file type
 - Shows file information: name, size (formatted and in bytes), and MIME type
 - Files are stored in the `uploads/` directory
 
-### Word to One-Hot Vectors (AI Application)
+#### Word to One-Hot Vectors
 - Converts a list of words into their one-hot vector representations.
 - Displays unique words and their corresponding vectors in a table format.
-- Supports space or comma-separated input of 10-n words.
+- Supports space or comma-separated input of words.
 
-### Token Length Checker (AI Application)
+#### Token Length Checker
 - Counts the number of tokens (words, simply split by spaces) in a given paragraph.
 - Provides a quick way to estimate text length in terms of tokens.
 
 ## How to Use
 
-1. **Animal Selection:**
-   - Click on any of the three checkboxes (Cat, Dog, Elephant)
-   - The corresponding animal emoji and name will be displayed
-   - Only one animal can be selected at a time
+1. **Open the Application:**
+   - Ensure your Flask server is running (use `python app.py` or `python run_server.py`).
+   - Open your browser to `http://localhost:5000`.
 
-2. **File Upload:**
-   - Either click on the upload area or drag and drop a file
-   - After upload, you'll see the file's name, size, and type
-   - Files are saved to the `uploads/` directory
+2. **Navigate Between Applications:**
+   - The main page will display tiles for all available AI applications.
+   - Click the "Open App" button on any tile to switch to that application's interface.
+   - Use the "← Back to Main Applications" link to return to the main tile view.
 
-3. **Word to One-Hot Vectors:**
-   - Navigate to the "Word to One-Hot Vectors" application from the main page.
+3. **Using Specific Applications:**
+
+   **Animal Selector:**
+   - Click on any of the three checkboxes (Cat, Dog, Elephant) to see the corresponding animal emoji and name.
+
+   **File Upload:**
+   - Either click on the upload area or drag and drop a file.
+   - After upload, you'll see the file's name, size, and type.
+
+   **Word to One-Hot Vectors:**
    - Enter a list of words in the provided text area (space or comma separated).
    - Click "Get One-Hot Vectors" to see the results in a table.
 
-4. **Token Length Checker:**
-   - Navigate to the "Token Length Checker" application from the main page.
+   **Token Length Checker:**
    - Enter a paragraph or text in the provided text area.
    - Click "Count Tokens" to see the total token count.
-
-## Technologies Used
-
-- **Backend:** Flask (Python)
-- **Frontend:** HTML5, CSS3, JavaScript (Vanilla)
-- **Styling:** Modern CSS with gradients and animations
-- **File Handling:** Werkzeug for secure file uploads
-- **AI Features:** Word to One-Hot Vector encoding, Token Length Checker
-
-## Notes
-
-- Maximum file upload size is set to 16MB
-- Animal images are displayed using emojis for demonstration
-- The application includes drag-and-drop functionality for file uploads
-- Responsive design works on both desktop and mobile devices
 
 ## Setup and Installation
 
@@ -139,17 +137,30 @@ ear4-assign2/
 ├── requirements.txt       # Python dependencies
 ├── README.md             # This file
 ├── templates/
-│   └── index.html        # Main HTML template
+│   └── index.html        # Main HTML template (now includes all app sections)
 ├── static/
 │   ├── css/
 │   │   └── style.css     # Stylesheet
 │   ├── js/
-│   │   └── script.js     # JavaScript functionality
-│   │   └── one_hot_script.js # JavaScript for one-hot vector app
-│   │   └── token_checker_script.js # JavaScript for token checker app
+│   │   └── script.js     # Unified JavaScript for all app functionality
 │   └── images/
-│       ├── cat.svg       # Cat image (SVG)
-│       ├── dog.svg       # Dog image (SVG)
-│       └── elephant.svg  # Elephant image (SVG)
+│       ├── cat.svg       # Cat emoji placeholder
+│       ├── dog.svg       # Dog emoji placeholder
+│       └── elephant.svg  # Elephant emoji placeholder
 └── uploads/              # Directory for uploaded files
 ```
+
+## Technologies Used
+
+- **Backend:** Flask (Python)
+- **Frontend:** HTML5, CSS3, JavaScript (Vanilla, Single-Page Application style)
+- **Styling:** Modern CSS with gradients and animations
+- **File Handling:** Werkzeug for secure file uploads
+- **AI Features:** Animal Selector, File Upload Information, Word to One-Hot Vector encoding, Token Length Checker
+
+## Notes
+
+- Maximum file upload size is set to 16MB
+- Animal images are displayed using emojis for demonstration
+- The application includes drag-and-drop functionality for file uploads
+- Responsive design works on both desktop and mobile devices

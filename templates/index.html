@@ -3,69 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animal Selector & File Upload</title>
+    <title>ERA-V4 Assigment 2</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Animal Selector & File Upload Demo</h1>
+        <h1>ERA-V4 Assigment 2</h1>
         
         <div class="main-content">
-            <!-- Animal Selection Box -->
-            <div class="box animal-box">
-                <h2>Select an Animal</h2>
-                <div class="checkbox-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="animal" value="cat" id="cat-checkbox">
-                        <span class="checkmark"></span>
-                        Cat
-                    </label>
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="animal" value="dog" id="dog-checkbox">
-                        <span class="checkmark"></span>
-                        Dog
-                    </label>
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="animal" value="elephant" id="elephant-checkbox">
-                        <span class="checkmark"></span>
-                        Elephant
-                    </label>
+            <!-- AI Applications Container (Main Tile View) -->
+            <div class="box ai-applications-container">
+                
+                <!-- Animal Selector Tile -->
+                <div class="sub-app-box">
+                    <h3>Animal Selector</h3>
+                    <p>Select an animal to see its emoji.</p>
+                    <div class="button-group">
+                        <a href="#" class="btn-app-link" data-target="animal-selector-app">Open App</a>
+                    </div>
                 </div>
-                <div class="animal-display">
-                    <img id="animal-image" src="" alt="Selected animal" style="display: none;">
-                    <p id="animal-message">Select an animal to see its image</p>
+
+                <!-- File Upload Tile -->
+                <div class="sub-app-box">
+                    <h3>File Upload</h3>
+                    <p>Upload any file to get its name, size, and type.</p>
+                    <div class="button-group">
+                        <a href="#" class="btn-app-link" data-target="file-upload-app">Open App</a>
+                    </div>
+                </div>
+
+                <!-- Word to One-Hot Vectors Tile -->
+                <div class="sub-app-box">
+                    <h3>Word to One-Hot Vectors</h3>
+                    <p>Convert a list of words into their one-hot vector representations.</p>
+                    <div class="button-group">
+                        <a href="#" class="btn-app-link" data-target="one-hot-vectors-app">Open App</a>
+                    </div>
+                </div>
+
+                <!-- Token Length Checker Tile -->
+                <div class="sub-app-box">
+                    <h3>Token Length Checker</h3>
+                    <p>Count the number of tokens (words) in a given paragraph.</p>
+                    <div class="button-group">
+                        <a href="#" class="btn-app-link" data-target="token-checker-app">Open App</a>
+                    </div>
                 </div>
             </div>
 
-            <!-- AI Applications Box -->
-            <div class="box ai-box">
-                <h2>AI Applications</h2>
-                <ul class="app-list">
-                    <li><a href="{{ url_for('one_hot_vectors') }}">Word to One-Hot Vectors</a></li>
-                    <li><a href="{{ url_for('token_checker') }}">Token Length Checker</a></li>
-                </ul>
-            </div>
+            <!-- Animal Selector Application Section -->
+            <div id="animal-selector-app" class="app-section" style="display: none;">
+                <div class="box animal-selector-container">
+                    <div class="back-link">
+                        <a href="#" class="back-to-main">← Back to Main Applications</a>
+                    </div>
+                    <h1>Animal Selector</h1>
+                    <p>Select an animal to see its emoji.</p>
 
-            <!-- File Upload Box -->
-            <div class="box upload-box">
-                <h2>Upload a File</h2>
-                <div class="upload-area" id="upload-area">
-                    <input type="file" id="file-input" accept="*/*">
-                    <div class="upload-text">
-                        <p>Click to select a file or drag and drop</p>
-                        <span class="upload-hint">Any file type supported</span>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="animal" value="cat" id="cat-checkbox">
+                            <span class="checkmark"></span>
+                            Cat
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="animal" value="dog" id="dog-checkbox">
+                            <span class="checkmark"></span>
+                            Dog
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="animal" value="elephant" id="elephant-checkbox">
+                            <span class="checkmark"></span>
+                            Elephant
+                        </label>
+                    </div>
+                    <div class="animal-display">
+                        <img id="animal-image" src="" alt="Selected animal" style="display: none;">
+                        <p id="animal-message">Select an animal to see its image</p>
                     </div>
                 </div>
-                <div class="file-info" id="file-info" style="display: none;">
-                    <h3>File Information:</h3>
-                    <div class="info-item">
-                        <strong>Name:</strong> <span id="file-name"></span>
+            </div>
+
+            <!-- File Upload Application Section -->
+            <div id="file-upload-app" class="app-section" style="display: none;">
+                <div class="box file-upload-container">
+                    <div class="back-link">
+                        <a href="#" class="back-to-main">← Back to Main Applications</a>
                     </div>
-                    <div class="info-item">
-                        <strong>Size:</strong> <span id="file-size"></span>
+                    <h1>File Upload</h1>
+                    <p>Upload any file to get its name, size, and type.</p>
+
+                    <div class="upload-area" id="upload-area">
+                        <input type="file" id="file-input" accept="*/*">
+                        <div class="upload-text">
+                            <p>Click to select a file or drag and drop</p>
+                            <span class="upload-hint">Any file type supported</span>
+                        </div>
                     </div>
-                    <div class="info-item">
-                        <strong>Type:</strong> <span id="file-type"></span>
+                    <div class="file-info" id="file-info" style="display: none;">
+                        <h3>File Information:</h3>
+                        <div class="info-item">
+                            <strong>Name:</strong> <span id="file-name"></span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Size:</strong> <span id="file-size"></span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Type:</strong> <span id="file-type"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- One-Hot Vectors Application Section -->
+            <div id="one-hot-vectors-app" class="app-section" style="display: none;">
+                <div class="one-hot-container box">
+                    <div class="back-link">
+                        <a href="#" class="back-to-main">← Back to Main Applications</a>
+                    </div>
+                    <h1>Word to One-Hot Vectors</h1>
+                    <p>Enter a list of words (10-n words, space or comma separated) and get their one-hot vector representations.</p>
+
+                    <div class="input-group">
+                        <label for="words-input">Words:</label>
+                        <textarea id="words-input" placeholder="e.g., apple banana orange apple grape"></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button id="process-button" class="btn-process">Get One-Hot Vectors</button>
+                    </div>
+
+                    <div id="results" class="results-section" style="display: none;">
+                        <h2>Results</h2>
+                        <p id="error-message" class="error-message" style="display: none;"></p>
+                        <div id="vector-output"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Token Length Checker Application Section -->
+            <div id="token-checker-app" class="app-section" style="display: none;">
+                <div class="token-checker-container box">
+                    <div class="back-link">
+                        <a href="#" class="back-to-main">← Back to Main Applications</a>
+                    </div>
+                    <h1>Token Length Checker</h1>
+                    <p>Enter a paragraph or text below to get its token count (tokens are simply words split by spaces).</p>
+
+                    <div class="input-group">
+                        <label for="paragraph-input">Paragraph:</label>
+                        <textarea id="paragraph-input" placeholder="e.g., This is a sample paragraph to count tokens."></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button id="count-tokens-button" class="btn-process">Count Tokens</button>
+                    </div>
+
+                    <div id="results" class="results-section" style="display: none;">
+                        <h2>Token Count:</h2>
+                        <p id="error-message" class="error-message" style="display: none;"></p>
+                        <div id="token-count-display" class="token-count-display">0</div>
                     </div>
                 </div>
             </div>

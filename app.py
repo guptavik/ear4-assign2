@@ -31,10 +31,6 @@ def get_animal_image(animal):
         })
     return jsonify({'error': 'Invalid animal'}), 400
 
-@app.route('/one_hot_vectors')
-def one_hot_vectors():
-    return render_template('one_hot_vectors.html')
-
 @app.route('/api/one_hot_encode', methods=['POST'])
 def one_hot_encode():
     data = request.get_json()
@@ -57,10 +53,6 @@ def one_hot_encode():
         'unique_words': unique_words,
         'one_hot_vectors': one_hot_vectors
     })
-
-@app.route('/token_checker')
-def token_checker():
-    return render_template('token_checker.html')
 
 @app.route('/api/count_tokens', methods=['POST'])
 def count_tokens():

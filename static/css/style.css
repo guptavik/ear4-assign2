@@ -6,38 +6,13 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Revert to original gradient */
     min-height: 100vh;
     padding: 20px;
+    /* border: 5px solid red !important; /* Debug border */ */
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-h1 {
-    text-align: center;
-    color: white;
-    margin-bottom: 40px;
-    font-size: 2.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.main-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin-top: 20px;
-}
-
-@media (max-width: 768px) {
-    .main-content {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-}
-
+/* General Box Styling - moved up for cascade */
 .box {
     background: white;
     border-radius: 15px;
@@ -46,31 +21,299 @@ h1 {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.ai-box .app-list {
-    list-style: none;
-    padding: 0;
-}
-
-.ai-box .app-list li {
-    margin-bottom: 10px;
-}
-
-.ai-box .app-list a {
-    text-decoration: none;
-    color: #667eea;
-    font-weight: bold;
-    font-size: 1.1rem;
-    transition: color 0.3s ease;
-}
-
-.ai-box .app-list a:hover {
-    color: #764ba2;
-    text-decoration: underline;
-}
-
 .box:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    /* border: 5px solid blue !important; /* Debug border */ */
+}
+
+h1 {
+    text-align: center;
+    color: white; /* Revert to white for main H1 */
+    margin-bottom: 40px;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 20px;
+    align-items: center;
+    width: 100%;
+    /* border: 5px solid green !important; /* Debug border */ */
+}
+
+.ai-applications-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    /* border: 5px solid purple !important; /* Debug border */ */
+    /* Ensure box styles are explicitly applied here */
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.sub-app-box {
+    background: #fdfdff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sub-app-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.sub-app-box h3 {
+    color: #444;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 8px;
+}
+
+/* New styles for SPA sections */
+.app-section {
+    width: 100%;
+    margin-top: 20px;
+    display: none; /* Hidden by default, shown by JS */
+    max-width: 1200px;
+    padding: 20px;
+    /* border: 5px solid orange !important; /* Debug border */ */
+}
+
+.one-hot-container, .token-checker-container, .animal-selector-container, .file-upload-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.one-hot-container h1, .token-checker-container h1, .animal-selector-container h1, .file-upload-container h1 {
+    color: #333; /* Ensure headings are dark within these sections */
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 10px;
+}
+
+.one-hot-container p, .token-checker-container p {
+    font-size: 1rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.one-hot-container .input-group, .token-checker-container .input-group {
+    margin-bottom: 25px;
+}
+
+.one-hot-container label, .token-checker-container label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    color: #555;
+    font-weight: bold;
+}
+
+.one-hot-container textarea, .token-checker-container textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    min-height: 120px;
+    resize: vertical;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    transition: border-color 0.3s ease;
+}
+
+.one-hot-container textarea:focus, .token-checker-container textarea:focus {
+    border-color: #667eea;
+    outline: none;
+}
+
+.one-hot-container .button-group, .token-checker-container .button-group {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.one-hot-container .btn-process, .token-checker-container .btn-process {
+    background-color: #667eea;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.one-hot-container .btn-process:hover, .token-checker-container .btn-process:hover {
+    background-color: #764ba2;
+    transform: translateY(-2px);
+}
+
+.one-hot-container .results-section, .token-checker-container .results-section {
+    background-color: #f8f9ff;
+    border-radius: 8px;
+    padding: 20px;
+    border-left: 4px solid #667eea;
+    margin-top: 25px; /* Added margin for spacing */
+}
+
+.one-hot-container .results-section h2, .token-checker-container .results-section h2 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.one-hot-container .vector-table-container {
+    overflow-x: auto;
+    margin-top: 20px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+
+.one-hot-container .vector-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f9f9f9;
+    min-width: 600px; /* Ensure table is wide enough for many columns */
+}
+
+.one-hot-container .vector-table th, .one-hot-container .vector-table td {
+    border: 1px solid #eee;
+    padding: 10px 12px;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.one-hot-container .vector-table thead th {
+    background-color: #eef1f7;
+    color: #333;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.one-hot-container .vector-table tbody tr:nth-child(even) {
+    background-color: #f0f3f8;
+}
+
+.one-hot-container .vector-table tbody tr:hover {
+    background-color: #e0e6f0;
+}
+
+.one-hot-container .vector-table td.word-col {
+    text-align: left;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.one-hot-container .vector-table td.one {
+    background-color: #d1e7dd;
+    font-weight: bold;
+    color: #28a745;
+}
+
+.one-hot-container .vector-table td.zero {
+    color: #888;
+}
+
+.token-checker-container .token-count-display {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #28a745;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.one-hot-container .error-message, .token-checker-container .error-message {
+    color: #dc3545;
+    font-weight: bold;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+    font-size: 1.1rem;
+}
+
+.back-link a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.back-link a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    .ai-applications-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Styling for app list within sub-app-box */
+.sub-app-box p {
+    font-size: 1rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 20px;
+    flex-grow: 1; /* Allow paragraph to take available space */
+}
+
+.btn-app-link {
+    display: inline-block;
+    background-color: #667eea;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-app-link:hover {
+    background-color: #764ba2;
+    transform: translateY(-2px);
+}
+
+/* Ensure the ai-applications-container applies overall box styling */
+.ai-applications-container.box {
+    padding: 30px; /* Consistent padding with other main boxes */
 }
 
 .box h2 {
