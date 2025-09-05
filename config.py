@@ -2,6 +2,10 @@
 Flask Application Configuration
 """
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 class Config:
     """Base configuration class"""
@@ -16,6 +20,9 @@ class Config:
     HOST = os.environ.get('FLASK_HOST', '0.0.0.0')
     PORT = int(os.environ.get('FLASK_PORT', 5000))
     DEBUG = os.environ.get('FLASK_DEBUG', 'True').lower() == 'true'
+    
+    # Gemini API settings
+    GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
 
 class DevelopmentConfig(Config):
     """Development configuration"""

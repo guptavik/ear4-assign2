@@ -1,10 +1,14 @@
-from flask import Flask, render_template, request, jsonify, send_from_directory
+from flask import Flask, render_template, request, jsonify, send_from_directory, session
 import os
 from werkzeug.utils import secure_filename
+from config import config
+from gemini_service import get_gemini_service
+import uuid
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'uploads'
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
+
+# Load configuration
+app.config.from_object(config['default'])
 
 # Create uploads directory if it doesn't exist
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
@@ -71,6 +75,58 @@ def count_tokens():
     return jsonify({
         'token_count': token_count
     })
+
+@app.route('/api/chat', methods=['POST'])
+def chat():
+    """ChatGPT-like endpoint using Gemini AI"""
+    data = request.get_json()
+    if not data or 'message' not in data:
+        return jsonify({'error': 'No message provided'}), 400
+
+    message = data.get('message', '').strip()
+    if not message:
+        return jsonify({'error': 'Empty message'}), 400
+
+    # Get or create session ID
+    session_id = session.get('chat_session_id')
+    if not session_id:
+        session_id = str(uuid.uuid4())
+        session['chat_session_id'] = session_id
+
+    # Get Gemini service
+    gemini_service = get_gemini_service()
+    if not gemini_service:
+        return jsonify({
+            'error': 'AI service is not available. Please check your API key configuration.',
+            'response': 'I apologize, but I\'m currently unavailable. Please check the server configuration.'
+        }), 500
+
+    # Get response from Gemini
+    result = gemini_service.get_response(message, session_id)
+    
+    if result['success']:
+        return jsonify({
+            'response': result['response'],
+            'session_id': session_id,
+            'message_count': result.get('message_count', 0)
+        })
+    else:
+        return jsonify({
+            'error': result.get('error', 'Unknown error'),
+            'response': result['response']
+        }), 500
+
+@app.route('/api/chat/clear', methods=['POST'])
+def clear_chat():
+    """Clear the current chat session"""
+    session_id = session.get('chat_session_id')
+    if session_id:
+        gemini_service = get_gemini_service()
+        if gemini_service:
+            gemini_service.clear_session(session_id)
+        session.pop('chat_session_id', None)
+    
+    return jsonify({'success': True, 'message': 'Chat session cleared'})
 
 @app.route('/upload', methods=['POST'])
 def upload_file():

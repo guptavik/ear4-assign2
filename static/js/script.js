@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const tokenCheckerApp = document.getElementById('token-checker-app');
     const animalSelectorApp = document.getElementById('animal-selector-app');
     const fileUploadApp = document.getElementById('file-upload-app');
+    const aiChatApp = document.getElementById('ai-chat-app');
 
     // Navigation buttons/links
     const openAppButtons = document.querySelectorAll('.btn-app-link[data-target]');
@@ -22,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (tokenCheckerApp) tokenCheckerApp.style.display = 'none';
             if (animalSelectorApp) animalSelectorApp.style.display = 'none';
             if (fileUploadApp) fileUploadApp.style.display = 'none';
+            if (aiChatApp) aiChatApp.style.display = 'none';
 
             const targetApp = document.getElementById(targetAppId);
             if (targetApp) {
@@ -38,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (tokenCheckerApp) tokenCheckerApp.style.display = 'none';
             if (animalSelectorApp) animalSelectorApp.style.display = 'none';
             if (fileUploadApp) fileUploadApp.style.display = 'none';
+            if (aiChatApp) aiChatApp.style.display = 'none';
             mainApplicationsSection.style.display = 'grid'; // Or 'block' depending on its default display
         });
     });
@@ -315,10 +318,165 @@ document.addEventListener('DOMContentLoaded', function() {
         tlTokenCountDisplay.textContent = 'Error'; // Indicate an error state
     }
 
+    // --- AI Chat functionality (new) ---
+    const chatMessages = document.getElementById('chat-messages');
+    const chatInput = document.getElementById('chat-input');
+    const sendButton = document.getElementById('send-button');
+    const clearChatButton = document.getElementById('clear-chat-button');
+
+    // Auto-resize textarea
+    if (chatInput) {
+        chatInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+            
+            // Enable/disable send button based on input
+            const hasText = this.value.trim().length > 0;
+            sendButton.disabled = !hasText;
+        });
+
+        // Handle Enter key (send message) and Shift+Enter (new line)
+        chatInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                if (!sendButton.disabled) {
+                    sendMessage();
+                }
+            }
+        });
+    }
+
+    // Send button click handler
+    if (sendButton) {
+        sendButton.addEventListener('click', sendMessage);
+    }
+
+    // Clear chat button handler
+    if (clearChatButton) {
+        clearChatButton.addEventListener('click', clearChat);
+    }
+
+    async function sendMessage() {
+        const message = chatInput.value.trim();
+        if (!message) return;
+
+        // Add user message to chat
+        addMessage(message, 'user');
+        
+        // Clear input and resize
+        chatInput.value = '';
+        chatInput.style.height = 'auto';
+        sendButton.disabled = true;
+
+        // Add loading message
+        const loadingMessage = addMessage('', 'ai', true);
+
+        try {
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: message })
+            });
+
+            const data = await response.json();
+            
+            // Remove loading message
+            if (loadingMessage) {
+                loadingMessage.remove();
+            }
+
+            if (data.response) {
+                addMessage(data.response, 'ai');
+            } else {
+                addMessage(data.error || 'Sorry, I encountered an error. Please try again.', 'ai');
+            }
+
+        } catch (error) {
+            console.error('Error:', error);
+            
+            // Remove loading message
+            if (loadingMessage) {
+                loadingMessage.remove();
+            }
+            
+            addMessage('Sorry, I\'m having trouble connecting. Please check your internet connection and try again.', 'ai');
+        }
+    }
+
+    function addMessage(text, sender, isLoading = false) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${sender}-message${isLoading ? ' loading' : ''}`;
+
+        const avatar = document.createElement('div');
+        avatar.className = 'message-avatar';
+        avatar.textContent = sender === 'user' ? '👤' : '🤖';
+
+        const content = document.createElement('div');
+        content.className = 'message-content';
+
+        const messageText = document.createElement('div');
+        messageText.className = 'message-text';
+        
+        if (isLoading) {
+            messageText.innerHTML = `
+                <span>Thinking</span>
+                <div class="typing-indicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            `;
+        } else {
+            messageText.textContent = text;
+        }
+
+        const messageTime = document.createElement('div');
+        messageTime.className = 'message-time';
+        messageTime.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        content.appendChild(messageText);
+        content.appendChild(messageTime);
+        messageDiv.appendChild(avatar);
+        messageDiv.appendChild(content);
+
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        return messageDiv;
+    }
+
+    async function clearChat() {
+        if (confirm('Are you sure you want to clear the chat history?')) {
+            try {
+                await fetch('/api/chat/clear', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                // Clear messages except the initial greeting
+                const messages = chatMessages.querySelectorAll('.message');
+                messages.forEach((message, index) => {
+                    if (index > 0) { // Keep the first message (greeting)
+                        message.remove();
+                    }
+                });
+
+            } catch (error) {
+                console.error('Error clearing chat:', error);
+                alert('Failed to clear chat. Please try again.');
+            }
+        }
+    }
+
     // Initial state: show main applications, hide others
     mainApplicationsSection.style.display = 'grid';
     if (animalSelectorApp) animalSelectorApp.style.display = 'none';
     if (fileUploadApp) fileUploadApp.style.display = 'none';
     if (oneHotVectorsApp) oneHotVectorsApp.style.display = 'none';
     if (tokenCheckerApp) tokenCheckerApp.style.display = 'none';
+    if (aiChatApp) aiChatApp.style.display = 'none';
 });

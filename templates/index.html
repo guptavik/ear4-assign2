@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ERA-V4 Assigment 2</title>
+    <title>ERA-V4 Assignment 3 - AI Applications</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>ERA-V4 Assigment 2</h1>
+        <h1>ERA-V4 Assignment 3 - AI Applications</h1>
         
         <div class="main-content">
             <!-- AI Applications Container (Main Tile View) -->
@@ -47,6 +47,16 @@
                     <p>Count the number of tokens (words) in a given paragraph.</p>
                     <div class="button-group">
                         <a href="#" class="btn-app-link" data-target="token-checker-app">Open App</a>
+                    </div>
+                </div>
+
+                <!-- ChatGPT-like AI Chat Tile -->
+                <div class="sub-app-box">
+                    <span class="new-badge">NEW</span>
+                    <h3>AI Chat Assistant</h3>
+                    <p>Chat with an AI assistant powered by Google Gemini. Ask questions, get help, or have a conversation!</p>
+                    <div class="button-group">
+                        <a href="#" class="btn-app-link" data-target="ai-chat-app">Open Chat</a>
                     </div>
                 </div>
             </div>
@@ -161,6 +171,47 @@
                         <h2>Token Count:</h2>
                         <p id="error-message" class="error-message" style="display: none;"></p>
                         <div id="token-count-display" class="token-count-display">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Chat Application Section -->
+            <div id="ai-chat-app" class="app-section" style="display: none;">
+                <div class="ai-chat-container box">
+                    <div class="back-link">
+                        <a href="#" class="back-to-main">← Back to Main Applications</a>
+                    </div>
+                    
+                    <div class="chat-header">
+                        <h1>AI Chat Assistant</h1>
+                        <p>Powered by Google Gemini</p>
+                        <div class="chat-controls">
+                            <button id="clear-chat-button" class="btn-clear">Clear Chat</button>
+                        </div>
+                    </div>
+
+                    <div class="chat-container">
+                        <div id="chat-messages" class="chat-messages">
+                            <div class="message ai-message">
+                                <div class="message-avatar">🤖</div>
+                                <div class="message-content">
+                                    <div class="message-text">Hello! I'm your AI assistant powered by Google Gemini. How can I help you today?</div>
+                                    <div class="message-time">Just now</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-input-container">
+                            <div class="chat-input-wrapper">
+                                <textarea id="chat-input" placeholder="Type your message here..." rows="1"></textarea>
+                                <button id="send-button" class="btn-send" disabled>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" fill="currentColor"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="input-hint">Press Enter to send, Shift+Enter for new line</div>
+                        </div>
                     </div>
                 </div>
             </div>
